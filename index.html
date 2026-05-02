@@ -7,128 +7,115 @@
   <title>TrickElect Enterprise</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    @keyframes spark {
+      0%, 100% { text-shadow: 0 0 10px #FF4500, 0 0 20px #FF4500; opacity: 1; }
+      50% { text-shadow: 0 0 30px #fff, 0 0 40px #FF4500; opacity: 0.8; }
+    }
+    .spark-text { animation: spark 0.2s infinite; }
+    .electric-glow { box-shadow: 0 0 15px rgba(255, 69, 0, 0.5); border: 1px solid #FF4500; }
+    .pulse-live { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+    .modal-hidden { display: none; }
+  </style>
 </head>
 <body class="bg-white text-gray-800 font-sans scroll-smooth">
 
-  <header class="fixed w-full bg-white shadow z-50">
+  <header class="fixed w-full bg-white shadow-lg z-50">
     <div class="container mx-auto flex justify-between items-center py-4 px-6">
-      <div class="flex items-center space-x-2">
-        <h1 class="text-2xl font-bold text-[#FF4500]">TrickElect Enterprise</h1>
+      <div class="flex items-center space-x-3">
+        <h1 class="text-2xl font-bold text-[#FF4500]">TrickElect</h1>
+        <span class="flex items-center text-xs font-bold text-green-500 bg-green-50 px-2 py-1 rounded-full">
+          <span class="h-2 w-2 bg-green-500 rounded-full mr-2 pulse-live"></span> SERVICE ACTIVE
+        </span>
       </div>
-      <nav class="space-x-6 hidden md:flex">
-        <a href="#home" class="hover:text-[#FF4500] font-medium">Home</a>
+      <nav class="space-x-6 hidden md:flex items-center">
         <a href="#services" class="hover:text-[#FF4500] font-medium">Services</a>
         <a href="#portfolio" class="hover:text-[#FF4500] font-medium">Portfolio</a>
-        <a href="#about" class="hover:text-[#FF4500] font-medium">About</a>
-        <a href="#contact" class="hover:text-[#FF4500] font-medium">Contact</a>
+        <button onclick="toggleModal()" class="bg-[#FF4500] text-white px-5 py-2 rounded-lg font-bold hover:bg-orange-600 transition electric-glow">Sign Up</button>
       </nav>
     </div>
   </header>
 
-  <section id="home" class="flex items-center justify-center min-h-screen bg-gray-900 text-white relative">
-    <div class="text-center px-4 md:px-8">
-      <h2 class="text-4xl md:text-6xl font-bold mb-4 text-[#FF4500]">Need A Professional Electrician Service?</h2>
-      <p class="text-lg md:text-2xl mb-8">Shocking Service, Electrifying Results.</p>
-      <a href="#contact" class="bg-[#FF4500] hover:bg-orange-600 text-white font-semibold px-8 py-3 rounded transition shadow-lg">Request a Quote</a>
+  <section id="home" class="flex items-center justify-center min-h-screen bg-gray-900 text-white relative overflow-hidden">
+    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-30"></div>
+    <div class="text-center px-4 z-10">
+      <h2 class="text-5xl md:text-7xl font-extrabold mb-4 text-[#FF4500] tracking-tighter">TRICKELECT</h2>
+      <p class="text-lg md:text-2xl mb-8 font-light italic">Shocking Service, Electrifying Results.</p>
+      <div class="flex flex-col md:flex-row gap-4 justify-center">
+        <a href="https://wa.me/2347030307511" class="bg-green-600 hover:bg-green-700 text-white font-bold px-8 py-4 rounded-xl transition flex items-center justify-center">
+          <i class="fab fa-whatsapp mr-2 text-2xl"></i> Message on WhatsApp
+        </a>
+      </div>
     </div>
   </section>
 
-  <section id="services" class="py-20 bg-gray-100">
+  <div id="signUpModal" class="modal-hidden fixed inset-0 bg-black bg-opacity-90 z- flex items-center justify-center p-4">
+    <div class="bg-gray-900 w-full max-auto max-w-md p-8 rounded-3xl electric-glow relative border-t-4 border-[#FF4500]">
+      <button onclick="toggleModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white text-2xl">&times;</button>
+      <div class="text-center mb-8">
+          <i class="fas fa-bolt text-4xl text-[#FF4500] mb-2 spark-text"></i>
+          <h3 class="text-2xl font-bold text-white">Join the Grid</h3>
+          <p class="text-gray-400 text-sm">Secure your electrical consultation account</p>
+      </div>
+      <form class="space-y-4">
+        <input type="text" placeholder="Full Name" class="w-full bg-gray-800 border border-gray-700 text-white p-4 rounded-xl focus:outline-none focus:border-[#FF4500]">
+        <input type="email" placeholder="Email Address" class="w-full bg-gray-800 border border-gray-700 text-white p-4 rounded-xl focus:outline-none focus:border-[#FF4500]">
+        <input type="password" placeholder="Create Password" class="w-full bg-gray-800 border border-gray-700 text-white p-4 rounded-xl focus:outline-none focus:border-[#FF4500]">
+        <button type="submit" class="w-full bg-[#FF4500] text-white font-bold py-4 rounded-xl hover:bg-orange-600 transition-all shadow-lg shadow-orange-900/20">CONNECT ACCOUNT</button>
+      </form>
+    </div>
+  </div>
+
+  <section id="services" class="py-20 bg-gray-50">
     <div class="container mx-auto px-6">
-      <h3 class="text-3xl font-bold text-center mb-12 text-gray-800 border-b-4 border-[#FF4500] w-fit mx-auto pb-2">Our Services</h3>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-white p-8 shadow rounded text-center hover:shadow-2xl transition-all border-b-4 border-transparent hover:border-[#FF4500]">
-          <i class="fas fa-lightbulb text-4xl text-[#FF4500] mb-4"></i>
-          <h4 class="font-semibold text-xl mb-2">Lighting</h4>
-          <p class="text-gray-600 text-sm">Professional indoor and outdoor lighting installations with aesthetic precision.</p>
-        </div>
-        <div class="bg-white p-8 shadow rounded text-center hover:shadow-2xl transition-all border-b-4 border-transparent hover:border-[#FF4500]">
-          <i class="fas fa-bolt text-4xl text-[#FF4500] mb-4"></i>
-          <h4 class="font-semibold text-xl mb-2">Power Distribution</h4>
-          <p class="text-gray-600 text-sm">Reliable distribution solutions for residential and commercial properties.</p>
-        </div>
-        <div class="bg-white p-8 shadow rounded text-center hover:shadow-2xl transition-all border-b-4 border-transparent hover:border-[#FF4500]">
-          <i class="fas fa-box text-4xl text-[#FF4500] mb-4"></i>
-          <h4 class="font-semibold text-xl mb-2">Fuse Box Installation</h4>
-          <p class="text-gray-600 text-sm">Safe and efficient fuse box setups ensuring consistent power management.</p>
-        </div>
-        <div class="bg-white p-8 shadow rounded text-center hover:shadow-2xl transition-all border-b-4 border-transparent hover:border-[#FF4500]">
-          <i class="fas fa-plug text-4xl text-[#FF4500] mb-4"></i>
-          <h4 class="font-semibold text-xl mb-2">Wiring & Rewiring</h4>
-          <p class="text-gray-600 text-sm">Expert wiring services for new builds and upgrades for maximum safety.</p>
-        </div>
-        <div class="bg-white p-8 shadow rounded text-center hover:shadow-2xl transition-all border-b-4 border-transparent hover:border-[#FF4500]">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white p-8 shadow-xl rounded-2xl hover:electric-glow transition-all">
           <i class="fas fa-gauge-high text-4xl text-[#FF4500] mb-4"></i>
-          <h4 class="font-semibold text-xl mb-2">Circuit Panel Installation</h4>
-          <p class="text-gray-600 text-sm">Modern circuit panels installed with precision to support electrical loads.</p>
+          <h4 class="font-bold text-xl mb-2">Circuit Panel Installation</h4>
+          <p class="text-gray-600">Modern circuit panels installed with precision to support electrical loads safely.</p>
         </div>
-        <div class="bg-white p-8 shadow rounded text-center hover:shadow-2xl transition-all border-b-4 border-transparent hover:border-[#FF4500]">
+        <div class="bg-white p-8 shadow-xl rounded-2xl hover:electric-glow transition-all">
           <i class="fas fa-snowflake text-4xl text-[#FF4500] mb-4"></i>
-          <h4 class="font-semibold text-xl mb-2">Air Conditioner Installation</h4>
-          <p class="text-gray-600 text-sm">Energy-efficient AC installations with proper electrical setup.</p>
+          <h4 class="font-bold text-xl mb-2">Air Conditioner Installation</h4>
+          <p class="text-gray-600">Energy-efficient AC installations with proper electrical setup for Ogbomoso homes.</p>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="portfolio" class="py-20 bg-white">
-    <div class="container mx-auto px-6 text-center">
-      <h3 class="text-3xl font-bold mb-12 text-gray-800">Our High-End Installations</h3>
-      <p class="mb-10 text-gray-600">Precision and aesthetics in every project.</p>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        <div class="bg-gray-200 h-64 rounded-lg flex items-center justify-center italic text-gray-400">Decorative Lighting Photo</div>
-        <div class="bg-gray-200 h-64 rounded-lg flex items-center justify-center italic text-gray-400">Distribution Board Photo</div>
-        <div class="bg-gray-200 h-64 rounded-lg flex items-center justify-center italic text-gray-400">AC Installation Photo</div>
-      </div>
-    </div>
-  </section>
-
-  <section id="about" class="py-20 bg-gray-100">
-    <div class="container mx-auto px-6 md:flex md:items-center md:space-x-12">
-      <div class="md:w-1/2 mb-8 md:mb-0">
-        <h3 class="text-3xl font-bold text-gray-800 mb-6">About TrickElect Enterprise</h3>
-        <p class="text-gray-700 leading-relaxed text-lg">
-          Based in Ogbomoso, **TrickElect Enterprise** is a specialist electrical firm focused on technical precision and modern aesthetics.
-        </p>
-        <p class="mt-4 text-gray-700 leading-relaxed">
-          We combine expert craftsmanship with cutting-edge practices to ensure every connection is safe, efficient, and visually appealing. Whether it's a complex distribution reroute or high-end lighting, we power your possibilities.
-        </p>
-      </div>
-      <div class="md:w-1/2">
-        <div class="bg-[#FF4500] h-80 rounded-2xl shadow-xl flex items-center justify-center text-white text-4xl font-bold">TrickElect</div>
       </div>
     </div>
   </section>
 
   <section id="contact" class="py-20 bg-gray-900 text-white">
     <div class="container mx-auto px-6 text-center">
-      <h3 class="text-3xl font-bold mb-8 text-[#FF4500]">Get In Touch</h3>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-        <div class="p-4">
-          <i class="fas fa-phone-alt text-2xl text-[#FF4500] mb-2"></i>
-          <p>07030307511<br>09121897152</p>
+      <h3 class="text-3xl font-bold mb-12 text-[#FF4500]">TrickElect Contact Hub</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto mb-12">
+        <div class="flex items-center space-x-6 bg-gray-800 p-6 rounded-2xl">
+          <i class="fas fa-phone-alt text-3xl text-[#FF4500]"></i>
+          <div class="text-left">
+            <p class="text-gray-400 text-sm">Call Our Engineers</p>
+            <p class="font-bold">07030307511<br>09121897152</p>
+          </div>
         </div>
-        <div class="p-4">
-          <i class="fas fa-map-marker-alt text-2xl text-[#FF4500] mb-2"></i>
-          <p>Adenike Area,<br>Ogbomoso</p>
-        </div>
-        <div class="p-4">
-          <i class="fab fa-instagram text-2xl text-[#FF4500] mb-2"></i>
-          <p>@trickelect_enterprise</p>
-          <i class="fab fa-tiktok text-2xl text-[#FF4500] mt-2 mb-2"></i>
-          <p>@trickelect.enterprise</p>
+        <div class="flex items-center space-x-6 bg-gray-800 p-6 rounded-2xl">
+          <i class="fas fa-map-marker-alt text-3xl text-[#FF4500]"></i>
+          <div class="text-left">
+            <p class="text-gray-400 text-sm">Main Office</p>
+            <p class="font-bold">Adenike Area, Ogbomoso</p>
+          </div>
         </div>
       </div>
-      <a href="https://wa.me/2347030307511" class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-10 rounded-full text-xl transition shadow-lg">
-        <i class="fab fa-whatsapp mr-2"></i> Chat on WhatsApp
-      </a>
     </div>
   </section>
 
-  <footer class="bg-gray-800 text-gray-400 text-center py-6">
-    <p>&copy; 2026 TrickElect Enterprise. All Rights Reserved.</p>
+  <footer class="bg-black text-gray-500 text-center py-8 border-t border-gray-800">
+    <p class="text-sm tracking-widest">&copy; 2026 TRICKELECT ENTERPRISE. POWERING THE FUTURE.</p>
   </footer>
 
+  <script>
+    function toggleModal() {
+      const modal = document.getElementById('signUpModal');
+      modal.classList.toggle('modal-hidden');
+    }
+  </script>
 </body>
-</html>
-  
+  </html>
+                                                                     
