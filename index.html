@@ -3,37 +3,216 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="description" content="TrickElect Enterprise – Professional electrician services in Ogbomoso. Shocking Service, Electrifying Results." />
   <title>TrickElect Enterprise | Powering the Future</title>
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
+
+  <script src="[cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
+  <link rel="stylesheet" href="[cdnjs.cloudflare.com](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css)">
+
   <style>
     @keyframes spark {
-      0%, 100% { text-shadow: 0 0 10px #FF4500, 0 0 20px #FF4500; opacity: 1; }
-      50% { text-shadow: 0 0 30px #fff, 0 0 40px #FF4500; opacity: 0.8; }
+      0%,100% { text-shadow: 0 0 12px #FF4500, 0 0 20px #FF4500; opacity:1; }
+      50% { text-shadow: 0 0 24px #fff, 0 0 34px #FF4500; opacity:.8; }
     }
-    .spark-icon { animation: spark 0.3s infinite; }
-    .electric-glow { box-shadow: 0 0 25px rgba(255, 69, 0, 0.4); border: 1px solid #FF4500; }
-    .pulse-live { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
-    
-    .hidden-state { display: none !important; }
-    .fade-out { opacity: 0; transition: opacity 0.8s ease-out; pointer-events: none; }
-    #main-content { transition: opacity 1s ease-in; }
-    
-    /* Futuristic Input Styling */
-    input::placeholder { color: #4b5563; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    .spark-icon { animation: spark .35s infinite; }
+    .electric-glow { box-shadow: 0 0 25px rgba(255,69,0,.4); border:1px solid #FF4500; }
+    .pulse-live { animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;}50%{opacity:.3;} }
+    .hidden-state { display:none!important; }
+    .fade-out { opacity:0; transition:opacity .8s ease-out; pointer-events:none; }
+    input::placeholder {
+      color:#9ca3af; font-size:.75rem; text-transform:uppercase; letter-spacing:.1em;
+    }
   </style>
 </head>
-<body class="bg-white text-gray-800 font-sans scroll-smooth" onload="checkLogin()">
 
-  <div id="auth-overlay" class="fixed inset-0 bg-black z- flex items-center justify-center p-4">
-    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
-    <div class="bg-gray-900 w-full max-w-md p-10 rounded-3xl electric-glow relative border-t-4 border-[#FF4500] z-10">
-      <div class="text-center mb-8">
+<body class="bg-white text-gray-800 font-sans scroll-smooth" onload="checkSession()">
+
+  <!-- ===== Futuristic Auth / Sign‑Up Portal ===== -->
+  <div id="auth-overlay" class="fixed inset-0 flex items-center justify-center bg-black z-50">
+    <div class="absolute inset-0 bg-[url('[transparenttextures.com](https://www.transparenttextures.com/patterns/dark-mosaic.png)')] opacity-30"></div>
+    <div class="relative bg-gray-900 w-full max-w-md p-10 rounded-3xl electric-glow text-center border-t-4 border-[#FF4500] z-10">
+      <i class="fas fa-bolt text-6xl text-[#FF4500] mb-4 spark-icon"></i>
+      <h3 class="text-3xl font-bold text-white italic">SIGN INTO POWER GRID</h3>
+      <p class="text-gray-400 uppercase text-[10px] tracking-[0.25em] mt-2">Access Portal // i.trickelect.com</p>
+      <form id="authForm" onsubmit="handleAuth(event)" class="mt-8 space-y-4">
+        <input type="text" id="fullname" placeholder="Full Name" required
+          class="w-full bg-gray-800 border border-gray-700 text-white p-4 rounded-xl focus:border-[#FF4500] outline-none transition">
+        <input type="email" id="email" placeholder="Email Address" required
+          class="w-full bg-gray-800 border border-gray-700 text-white p-4 rounded-xl focus:border-[#FF4500] outline-none transition">
+        <input type="password" id="password" placeholder="Create Password" required
+          class="w-full bg-gray-800 border border-gray-700 text-white p-4 rounded-xl focus:border-[#FF4500] outline-none transition">
+        <button type="submit"
+          class="w-full bg-[#FF4500] hover:bg-orange-600 text-white font-extrabold py-4 rounded-xl shadow-md shadow-orange-900/50 transition tracking-widest">
+          INITIALIZE CONNECTION
+        </button>
+      </form>
+      <div class="mt-6 flex justify-center items-center gap-2 text-gray-500 text-[9px] uppercase tracking-[0.3em]">
+        <i class="fas fa-microchip"></i><span>System Status: Online</span>
+      </div>
+    </div>
+  </div>
+  <!-- ===== END Auth ===== -->
+
+  <div id="main-content" class="hidden-state opacity-0">
+
+    <!-- Header -->
+    <header class="fixed w-full bg-white/90 backdrop-blur-md shadow-md z-40">
+      <div class="container mx-auto flex justify-between items-center py-4 px-6">
+        <h1 class="text-2xl font-black text-[#FF4500] tracking-tight">TRICKELECT</h1>
+        <nav class="hidden md:flex space-x-8 text-sm font-bold">
+          <a href="#home" class="hover:text-[#FF4500]">HOME</a>
+          <a href="#services" class="hover:text-[#FF4500]">SERVICES</a>
+          <a href="#portfolio" class="hover:text-[#FF4500]">PORTFOLIO</a>
+          <a href="#about" class="hover:text-[#FF4500]">ABOUT</a>
+          <a href="#contact" class="hover:text-[#FF4500]">CONTACT</a>
+          <a href="#" onclick="logoutUser()" class="text-gray-400 hover:text-red-500">LOG‑OUT</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section id="home" class="flex items-center justify-center min-h-screen bg-gray-900 text-white relative">
+      <div class="text-center px-4">
+        <h2 class="text-4xl md:text-6xl font-bold mb-4 text-[#FF4500]">Need A Professional Electrician Service?</h2>
+        <p class="text-lg md:text-2xl mb-8 tracking-wide">Shocking Service, Electrifying Results.</p>
+        <a href="#contact" class="bg-[#FF4500] hover:bg-orange-600 text-white font-semibold px-10 py-4 rounded-full shadow-lg transition">Request a Quote</a>
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70"></div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="py-20 bg-gray-50">
+      <div class="container mx-auto px-6">
+        <h3 class="text-3xl font-extrabold text-center mb-12 border-b-4 border-[#FF4500] w-fit mx-auto pb-2">Our Services</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="bg-white p-8 shadow rounded text-center hover:shadow-xl border-b-4 hover:border-[#FF4500] transition">
+            <i class="fas fa-lightbulb text-4xl text-[#FF4500] mb-4"></i>
+            <h4 class="font-semibold text-xl mb-2">Lighting</h4>
+            <p class="text-gray-600 text-sm">Indoor/outdoor lighting with sleek, modern aesthetic precision.</p>
+          </div>
+          <div class="bg-white p-8 shadow rounded text-center hover:shadow-xl border-b-4 hover:border-[#FF4500] transition">
+            <i class="fas fa-bolt text-4xl text-[#FF4500] mb-4"></i>
+            <h4 class="font-semibold text-xl mb-2">Power Distribution</h4>
+            <p class="text-gray-600 text-sm">Reliable electrical energy flows for homes and industries.</p>
+          </div>
+          <div class="bg-white p-8 shadow rounded text-center hover:shadow-xl border-b-4 hover:border-[#FF4500] transition">
+            <i class="fas fa-box text-4xl text-[#FF4500] mb-4"></i>
+            <h4 class="font-semibold text-xl mb-2">Fuse Box Installation</h4>
+            <p class="text-gray-600 text-sm">Safe, efficient fuse boxes engineered for durability.</p>
+          </div>
+          <div class="bg-white p-8 shadow rounded text-center hover:shadow-xl border-b-4 hover:border-[#FF4500] transition">
+            <i class="fas fa-plug text-4xl text-[#FF4500] mb-4"></i>
+            <h4 class="font-semibold text-xl mb-2">Wiring & Rewiring</h4>
+            <p class="text-gray-600 text-sm">Full wiring setup or rewiring retrofit with precision.</p>
+          </div>
+          <div class="bg-white p-8 shadow rounded text-center hover:shadow-xl border-b-4 hover:border-[#FF4500] transition">
+            <i class="fas fa-gauge-high text-4xl text-[#FF4500] mb-4"></i>
+            <h4 class="font-semibold text-xl mb-2">Circuit Panel Installation</h4>
+            <p class="text-gray-600 text-sm">Modern circuit panels configured for maximum protection.</p>
+          </div>
+          <div class="bg-white p-8 shadow rounded text-center hover:shadow-xl border-b-4 hover:border-[#FF4500] transition">
+            <i class="fas fa-snowflake text-4xl text-[#FF4500] mb-4"></i>
+            <h4 class="font-semibold text-xl mb-2">Air Conditioner Installation</h4>
+            <p class="text-gray-600 text-sm">Energy‑efficient AC electrical integration and mounting.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio -->
+    <section id="portfolio" class="py-20 bg-white text-center">
+      <div class="container mx-auto px-6">
+        <h3 class="text-3xl font-extrabold mb-8">Our High‑End Installations</h3>
+        <p class="text-gray-600 mb-10">A glimpse into our decorative lighting and technical expertise.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div class="bg-gray-200 h-64 rounded-lg flex items-center justify-center italic text-gray-400">Lighting Project</div>
+          <div class="bg-gray-200 h-64 rounded-lg flex items-center justify-center italic text-gray-400">Power Distribution</div>
+          <div class="bg-gray-200 h-64 rounded-lg flex items-center justify-center italic text-gray-400">AC Installation</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="py-20 bg-gray-100">
+      <div class="container mx-auto px-6 md:flex md:items-center md:space-x-12">
+        <div class="md:w-1/2 mb-8 md:mb-0">
+          <h3 class="text-3xl font-bold mb-6 text-gray-800">About TrickElect Enterprise</h3>
+          <p class="text-gray-700 leading-relaxed text-lg">
+            Located in <b>Ogbomoso</b>, TrickElect Enterprise blends technical precision with modern design.
+            Every connection we make meets engineering standards and visual excellence.
+          </p>
+          <p class="mt-4 text-gray-700 leading-relaxed">
+            Whether for smart homes, complex distribution networks, or luxury lighting, we ensure your systems run—perfectly and beautifully.
+          </p>
+        </div>
+        <div class="md:w-1/2">
+          <div class="bg-[#FF4500] h-80 rounded-2xl shadow-xl flex items-center justify-center text-white text-4xl font-bold">TRICKELECT</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-20 bg-gray-900 text-white text-center">
+      <div class="container mx-auto px-6">
+        <h3 class="text-3xl font-bold mb-8 text-[#FF4500]">Get In Touch</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          <div>
+            <i class="fas fa-phone-alt text-2xl text-[#FF4500] mb-2"></i>
+            <p class="text-lg">07030307511<br>09121897152</p>
+          </div>
+          <div>
+            <i class="fas fa-map-marker-alt text-2xl text-[#FF4500] mb-2"></i>
+            <p class="text-lg">Adenike Area,<br>Ogbomoso</p>
+          </div>
+        </div>
+        <a href="[wa.me](https://wa.me/2347030307511)"
+           class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-10 rounded-full text-xl transition shadow-lg">
+          <i class="fab fa-whatsapp mr-2"></i> Chat on WhatsApp
+        </a>
+      </div>
+    </section>
+
+    <footer class="bg-gray-800 text-gray-400 text-center py-6 text-sm">
+      &copy; 2026 TrickElect Enterprise · All Rights Reserved
+    </footer>
+
+  </div><!-- End main content -->
+
+  <!-- ===== JS Logic ===== -->
+  <script>
+    function checkSession() {
+      const overlay = document.getElementById('auth-overlay');
+      const main = document.getElementById('main-content');
+      if (localStorage.getItem('TE_user')) {
+        overlay.style.display = 'none';
+        main.classList.remove('hidden-state');
+        main.style.opacity = '1';
+      }
+    }
+
+    function handleAuth(e) {
+      e.preventDefault();
+      const name = document.getElementById('fullname').value.trim();
+      if (!name) return;
+      localStorage.setItem('TE_user', name);
+      const overlay = document.getElementById('auth-overlay');
+      const main = document.getElementById('main-content');
+      overlay.classList.add('fade-out');
+      setTimeout(() => {
+        overlay.style.display = 'none';
+        main.classList.remove('hidden-state');
+        main.style.opacity = '1';
+      }, 800);
+    }
+
+    function logoutUser() {
+      localStorage.removeItem('TE_user');
+      location.reload();
+    }
+  </script>
+</body>
+</html>
           <i class="fas fa-bolt text-5xl text-[#FF4500] mb-4 spark-icon"></i>
           <h3 class="text-3xl font-bold text-white tracking-tight italic">CONNECT TO THE GRID</h3>
           <p class="text-gray-400 text-[10px] mt-2 uppercase tracking-[0.3em]">Accessing i.trickelect.com portal</p>
