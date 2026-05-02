@@ -4,75 +4,173 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="TrickElect Enterprise – Professional electrician services in Ogbomoso. Shocking Service, Electrifying Results." />
-  <title>TrickElect Enterprise</title>
+  <title>TrickElect Enterprise | Powering the Future</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
+    /* Futuristic Spark Animation */
     @keyframes spark {
       0%, 100% { text-shadow: 0 0 10px #FF4500, 0 0 20px #FF4500; opacity: 1; }
       50% { text-shadow: 0 0 30px #fff, 0 0 40px #FF4500; opacity: 0.8; }
     }
-    .spark-text { animation: spark 0.2s infinite; }
-    .electric-glow { box-shadow: 0 0 15px rgba(255, 69, 0, 0.5); border: 1px solid #FF4500; }
+    .spark-icon { animation: spark 0.3s infinite; }
+    .electric-glow { box-shadow: 0 0 25px rgba(255, 69, 0, 0.4); border: 1px solid #FF4500; }
     .pulse-live { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
-    .modal-hidden { display: none; }
+    
+    .hidden-state { display: none !important; }
+    .fade-out { opacity: 0; transition: opacity 0.8s ease-out; pointer-events: none; }
+    #main-content { transition: opacity 1s ease-in; }
   </style>
 </head>
-<body class="bg-white text-gray-800 font-sans scroll-smooth">
+<body class="bg-white text-gray-800 font-sans scroll-smooth" onload="checkLogin()">
 
-  <header class="fixed w-full bg-white shadow-lg z-50">
-    <div class="container mx-auto flex justify-between items-center py-4 px-6">
-      <div class="flex items-center space-x-3">
-        <h1 class="text-2xl font-bold text-[#FF4500]">TrickElect</h1>
-        <span class="flex items-center text-xs font-bold text-green-500 bg-green-50 px-2 py-1 rounded-full">
-          <span class="h-2 w-2 bg-green-500 rounded-full mr-2 pulse-live"></span> SERVICE ACTIVE
-        </span>
-      </div>
-      <nav class="space-x-6 hidden md:flex items-center">
-        <a href="#services" class="hover:text-[#FF4500] font-medium">Services</a>
-        <a href="#portfolio" class="hover:text-[#FF4500] font-medium">Portfolio</a>
-        <button onclick="toggleModal()" class="bg-[#FF4500] text-white px-5 py-2 rounded-lg font-bold hover:bg-orange-600 transition electric-glow">Sign Up</button>
-      </nav>
-    </div>
-  </header>
-
-  <section id="home" class="flex items-center justify-center min-h-screen bg-gray-900 text-white relative overflow-hidden">
-    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-30"></div>
-    <div class="text-center px-4 z-10">
-      <h2 class="text-5xl md:text-7xl font-extrabold mb-4 text-[#FF4500] tracking-tighter">TRICKELECT</h2>
-      <p class="text-lg md:text-2xl mb-8 font-light italic">Shocking Service, Electrifying Results.</p>
-      <div class="flex flex-col md:flex-row gap-4 justify-center">
-        <a href="https://wa.me/2347030307511" class="bg-green-600 hover:bg-green-700 text-white font-bold px-8 py-4 rounded-xl transition flex items-center justify-center">
-          <i class="fab fa-whatsapp mr-2 text-2xl"></i> Message on WhatsApp
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <div id="signUpModal" class="modal-hidden fixed inset-0 bg-black bg-opacity-90 z- flex items-center justify-center p-4">
-    <div class="bg-gray-900 w-full max-auto max-w-md p-8 rounded-3xl electric-glow relative border-t-4 border-[#FF4500]">
-      <button onclick="toggleModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white text-2xl">&times;</button>
+  <div id="auth-overlay" class="fixed inset-0 bg-black z- flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
+    <div class="bg-gray-900 w-full max-w-md p-10 rounded-3xl electric-glow relative border-t-4 border-[#FF4500] z-10">
       <div class="text-center mb-8">
-          <i class="fas fa-bolt text-4xl text-[#FF4500] mb-2 spark-text"></i>
-          <h3 class="text-2xl font-bold text-white">Join the Grid</h3>
-          <p class="text-gray-400 text-sm">Secure your electrical consultation account</p>
+          <i class="fas fa-bolt text-5xl text-[#FF4500] mb-4 spark-icon"></i>
+          <h3 class="text-3xl font-bold text-white tracking-tight italic">CONNECT TO THE GRID</h3>
+          <p class="text-gray-400 text-xs mt-2 uppercase tracking-widest">Authorized Access Only | TrickElect</p>
       </div>
-      <form class="space-y-4">
-        <input type="text" placeholder="Full Name" class="w-full bg-gray-800 border border-gray-700 text-white p-4 rounded-xl focus:outline-none focus:border-[#FF4500]">
-        <input type="email" placeholder="Email Address" class="w-full bg-gray-800 border border-gray-700 text-white p-4 rounded-xl focus:outline-none focus:border-[#FF4500]">
-        <input type="password" placeholder="Create Password" class="w-full bg-gray-800 border border-gray-700 text-white p-4 rounded-xl focus:outline-none focus:border-[#FF4500]">
-        <button type="submit" class="w-full bg-[#FF4500] text-white font-bold py-4 rounded-xl hover:bg-orange-600 transition-all shadow-lg shadow-orange-900/20">CONNECT ACCOUNT</button>
+      <form onsubmit="handleAuth(event)" class="space-y-4">
+        <input type="text" required placeholder="Full Name" class="w-full bg-gray-800 border border-gray-700 text-white p-4 rounded-xl focus:outline-none focus:border-[#FF4500] transition-all">
+        <input type="email" required placeholder="Email Address" class="w-full bg-gray-800 border border-gray-700 text-white p-4 rounded-xl focus:outline-none focus:border-[#FF4500] transition-all">
+        <input type="password" required placeholder="Security Password" class="w-full bg-gray-800 border border-gray-700 text-white p-4 rounded-xl focus:outline-none focus:border-[#FF4500] transition-all">
+        <button type="submit" class="w-full bg-[#FF4500] text-white font-black py-4 rounded-xl hover:bg-orange-600 transition-all shadow-lg shadow-orange-900/40 tracking-widest">INITIALIZE CONNECTION</button>
       </form>
+      <p class="text-center text-gray-600 text-[10px] mt-6 uppercase tracking-widest"><i class="fas fa-shield-halved mr-1"></i> Encrypted Professional Link</p>
     </div>
   </div>
 
-  <section id="services" class="py-20 bg-gray-50">
-    <div class="container mx-auto px-6">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="bg-white p-8 shadow-xl rounded-2xl hover:electric-glow transition-all">
-          <i class="fas fa-gauge-high text-4xl text-[#FF4500] mb-4"></i>
-          <h4 class="font-bold text-xl mb-2">Circuit Panel Installation</h4>
+  <div id="main-content" class="hidden-state opacity-0">
+    <header class="fixed w-full bg-white/90 backdrop-blur-md shadow-xl z-50">
+      <div class="container mx-auto flex justify-between items-center py-4 px-6">
+        <div class="flex items-center space-x-3">
+          <h1 class="text-2xl font-black text-[#FF4500] tracking-tighter">TRICKELECT</h1>
+          <div class="flex items-center text-[10px] font-bold text-green-600 bg-green-50 px-2 py-1 rounded-md border border-green-200">
+            <span class="h-2 w-2 bg-green-500 rounded-full mr-2 pulse-live"></span> SYSTEM ONLINE
+          </div>
+        </div>
+        <nav class="space-x-8 hidden md:flex items-center">
+          <a href="#services" class="hover:text-[#FF4500] font-bold text-sm uppercase tracking-wider transition">Services</a>
+          <a href="#portfolio" class="hover:text-[#FF4500] font-bold text-sm uppercase tracking-wider transition">Work</a>
+          <a href="https://wa.me/2347030307511" class="bg-green-500 text-white px-4 py-2 rounded-lg text-xs font-black hover:bg-green-600 transition shadow-md flex items-center">
+            <i class="fab fa-whatsapp mr-2"></i> WHATSAPP
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <section id="home" class="flex items-center justify-center min-h-screen bg-gray-900 text-white relative">
+      <div class="text-center px-4 relative z-10">
+        <h2 class="text-6xl md:text-8xl font-black mb-4 text-white tracking-tighter">POWERING<br><span class="text-[#FF4500]">POSSIBILITIES.</span></h2>
+        <p class="text-lg md:text-xl mb-10 font-light text-gray-400 uppercase tracking-[0.4em]">Ogbomoso's Technical Elite</p>
+        <a href="#services" class="border-2 border-[#FF4500] text-[#FF4500] font-bold px-10 py-4 rounded-full hover:bg-[#FF4500] hover:text-white transition-all duration-500">EXPLORE SERVICES</a>
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-60"></div>
+    </section>
+
+    <section id="services" class="py-24 bg-white">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-20">
+          <h3 class="text-4xl font-black text-gray-900 mb-4">ENGINEERING EXCELLENCE</h3>
+          <div class="h-1 w-20 bg-[#FF4500] mx-auto"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div class="group p-10 bg-gray-50 rounded-3xl hover:bg-white hover:electric-glow transition-all duration-500">
+            <i class="fas fa-bolt-lightning text-4xl text-[#FF4500] mb-6"></i>
+            <h4 class="font-bold text-xl mb-3">Power Distribution</h4>
+            <p class="text-gray-500 text-sm leading-relaxed">Advanced routing for residential and commercial hubs, ensuring zero-load failures.</p>
+          </div>
+          <div class="group p-10 bg-gray-50 rounded-3xl hover:bg-white hover:electric-glow transition-all duration-500">
+            <i class="fas fa-snowflake text-4xl text-[#FF4500] mb-6"></i>
+            <h4 class="font-bold text-xl mb-3">AC Integration</h4>
+            <p class="text-gray-500 text-sm leading-relaxed">Specialized cooling system power-ups with dedicated circuit protection.</p>
+          </div>
+          <div class="group p-10 bg-gray-50 rounded-3xl hover:bg-white hover:electric-glow transition-all duration-500">
+            <i class="fas fa-lightbulb text-4xl text-[#FF4500] mb-6"></i>
+            <h4 class="font-bold text-xl mb-3">Aesthetic Lighting</h4>
+            <p class="text-gray-500 text-sm leading-relaxed">High-end decorative lighting for luxury interiors and exterior safety.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio" class="py-24 bg-gray-50">
+      <div class="container mx-auto px-6 text-center">
+        <h3 class="text-3xl font-black mb-16 tracking-widest">LIVE PROJECTS</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <img src="1000037435.jpg" alt="Installation" class="w-full h-96 object-cover rounded-3xl shadow-2xl grayscale hover:grayscale-0 transition duration-700">
+          <div class="bg-gray-200 h-96 rounded-3xl flex items-center justify-center italic text-gray-400 border-2 border-dashed border-gray-300">
+            Upcoming Technical Highlight
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="py-24 bg-gray-900 text-white">
+      <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto bg-gray-800 p-12 rounded-[3rem] border border-gray-700 text-center">
+          <h3 class="text-3xl font-bold mb-8">SECURE A CONSULTATION</h3>
+          <div class="flex flex-col md:flex-row justify-center items-center gap-10">
+            <div>
+              <p class="text-[#FF4500] font-black text-2xl uppercase">07030307511</p>
+              <p class="text-[#FF4500] font-black text-2xl uppercase">09121897152</p>
+            </div>
+            <div class="h-10 w-[1px] bg-gray-600 hidden md:block"></div>
+            <div>
+              <p class="text-gray-400 text-xs uppercase tracking-widest">Headquarters</p>
+              <p class="text-xl font-bold">Adenike Area, Ogbomoso</p>
+            </div>
+          </div>
+          <div class="mt-12">
+             <a href="https://wa.me/2347030307511" class="inline-block bg-white text-black font-black px-12 py-5 rounded-full hover:bg-[#FF4500] hover:text-white transition-all shadow-xl">
+               OPEN WHATSAPP LINK
+             </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="bg-black text-gray-700 text-center py-12 text-[10px] tracking-[0.5em] uppercase">
+      &copy; 2026 TrickElect Enterprise // High-Precision Engineering // Ogbomoso
+    </footer>
+  </div>
+
+  <script>
+    function checkLogin() {
+      // Check if session already exists
+      if (sessionStorage.getItem('trickElect_auth') === 'connected') {
+        // Instant show for returning tab
+        document.getElementById('auth-overlay').style.display = 'none';
+        const main = document.getElementById('main-content');
+        main.classList.remove('hidden-state');
+        main.style.opacity = "1";
+      }
+    }
+
+    function handleAuth(e) {
+      e.preventDefault();
+      const overlay = document.getElementById('auth-overlay');
+      const main = document.getElementById('main-content');
+      
+      // Save state
+      sessionStorage.setItem('trickElect_auth', 'connected');
+      
+      // Animation sequence
+      overlay.classList.add('fade-out');
+      setTimeout(() => {
+        overlay.style.display = 'none';
+        main.classList.remove('hidden-state');
+        setTimeout(() => {
+          main.style.opacity = "1";
+        }, 50);
+      }, 800);
+    }
+  </script>
+</body>
+</html>
           <p class="text-gray-600">Modern circuit panels installed with precision to support electrical loads safely.</p>
         </div>
         <div class="bg-white p-8 shadow-xl rounded-2xl hover:electric-glow transition-all">
